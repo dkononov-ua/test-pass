@@ -1,0 +1,47 @@
+<div class="container">
+  <h2>Перевірка на надійність паролю</h2>
+  <mat-form-field class="inputbox" appearance="outline">
+    <mat-label>Пароль</mat-label>
+    <input matInput [type]="hide ? 'password' : 'text'" id="regPassword" [(ngModel)]="regPassword" minlength="8"
+      maxlength="25" required>
+    <button mat-icon-button matSuffix (click)="hide = !hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+    <div class="password-strength" *ngIf="!regPassword">
+      <div class="strength-indicator gray"></div>
+      <div class="strength-indicator gray"></div>
+      <div class="strength-indicator gray"></div>
+    </div>
+
+    <div class="password-strength" *ngIf="lessEight()">
+      <div class="strength-indicator red"></div>
+      <div class="strength-indicator red"></div>
+      <div class="strength-indicator red"></div>
+    </div>
+
+    <div class="password-strength" *ngIf="isWeakPassword()">
+      <div class="strength-indicator red"></div>
+      <div class="strength-indicator gray"></div>
+      <div class="strength-indicator gray"></div>
+    </div>
+
+    <div class="password-strength" *ngIf="isMediumPassword()">
+      <div class="strength-indicator yellow"></div>
+      <div class="strength-indicator yellow"></div>
+      <div class="strength-indicator gray"></div>
+    </div>
+
+    <div class="password-strength" *ngIf="isStrongPassword()">
+      <div class="strength-indicator green"></div>
+      <div class="strength-indicator green"></div>
+      <div class="strength-indicator green"></div>
+    </div>
+
+    <mat-hint align="start" *ngIf="lessEight()">Мінімум 8 символів</mat-hint>
+    <mat-hint align="start" *ngIf="isWeakPassword()">Слабкий</mat-hint>
+    <mat-hint align="start" *ngIf="isMediumPassword()">Середній</mat-hint>
+    <mat-hint align="start" *ngIf="isStrongPassword()">Сильний</mat-hint>
+
+  </mat-form-field>
+</div>
